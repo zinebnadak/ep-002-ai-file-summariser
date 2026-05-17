@@ -1,0 +1,30 @@
+Artificial intelligence is transforming how software is built. 
+Developers who understand both the theory and the practical 
+implementation of AI systems are becoming increasingly valuable.
+
+Machine learning is a subset of AI that allows systems to learn 
+from data without being explicitly programmed. Instead of writing 
+rules by hand, you train a model on examples and it learns the 
+patterns itself.
+
+There are three main types of machine learning. Supervised learning 
+uses labelled data — you show the model inputs and the correct 
+outputs, and it learns the mapping. Unsupervised learning finds 
+patterns in unlabelled data. Reinforcement learning trains an agent 
+to make decisions by rewarding good outcomes and penalising bad ones.
+
+Large language models like GPT and Claude are trained on vast amounts 
+of text data. They learn to predict the next token in a sequence, 
+and from that simple objective they develop surprisingly capable 
+reasoning and language understanding.
+
+RAG — Retrieval Augmented Generation — is a technique that gives 
+a language model access to external knowledge at inference time. 
+Instead of relying only on what the model learned during training, 
+you retrieve relevant documents and include them in the prompt. 
+This makes the model more accurate and keeps its knowledge current.
+
+AI agents go one step further. Instead of a single prompt and 
+response, an agent can use tools, make decisions, and chain multiple 
+steps together to complete a task. This is the direction most 
+production AI systems are moving toward.
