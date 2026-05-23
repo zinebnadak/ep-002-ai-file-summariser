@@ -13,6 +13,6 @@ class Filesummary (BaseModel):
     overview: str
     key_sections: list[Section] # list o dictionaries, each item is a dictionary BUT validate the dict is a str
 
-class Section (Basemodel):
+class Section (BaseModel):
     sectio_title: str
     summary: str
