@@ -17,11 +17,23 @@ A command-line tool that accepts a `.txt`, `.pdf`, `.md`, or `.docx` file, chunk
 - [The detail about chunking or structured outputs worth remembering]
 
 
-## How to Run
+## How to build
  
 **Prerequisites**
 - Python 3.9+
 - An OpenAI API key and/or an Anthropic API key
+
+Setup your virtual environment, activate it and install the dependencies:
+```python3 -m venv venv```
+```source venv/bin/activate```
+```pip install anthropic openai pypdf python-dotenv pydantic```
+
+
+## How to Run
+
+
+
+
 
 <!-- Add real example output after the build -->
 

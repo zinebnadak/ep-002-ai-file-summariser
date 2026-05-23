@@ -3,7 +3,7 @@
  
 ## What I Am Building
  
-A command-line tool that takes a file (.txt, .pdf, .md), chunks it, and uses the API to return a structured summary.
+A command-line tool that takes a file (.txt, .pdf, .md), chunks it, and uses the API to return a structured summary
  
 ## Why This Project
  
