@@ -1,6 +1,6 @@
 # What a Chunck and file summury looks like, then Pydantic validates datatypes using its Basemodel, and w
 
-from pydantic import BaseModel  #checks if data types are valid if not 
+from pydantic import BaseModel  #checks if data types are valid 
 from typing import List #fields contain MULTIPLE items, just just a single str , using only 
 
 class ChunckSummary (BaseModel):
