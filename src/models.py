@@ -17,3 +17,15 @@ class FileSummary (BaseModel):
     overview: str
     key_sections: list[Section] # list o dictionaries, each item is a dictionary BUT validate the dict is a str with Section
 
+'''
+chunk = ChunkSummary(
+    main_concept="Machine Learning",
+    key_points=[
+        "Uses data to learn patterns",
+        "Improves over time"
+    ],
+    keywords=["AI", "data", "models"]
+)
+
+print(chunk)
+'''
