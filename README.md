@@ -26,7 +26,7 @@ A command-line tool that accepts a `.txt`, `.pdf`, `.md`, or `.docx` file, chunk
 Setup your virtual environment, activate it and install the dependencies:
 ```python3 -m venv venv```
 ```source venv/bin/activate```
-```pip install anthropic openai pypdf python-dotenv pydantic```
+```pip install anthropic openai pypdf python-dotenv pydantic python-docx```
 
 
 ## How to Run
