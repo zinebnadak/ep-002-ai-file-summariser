@@ -36,6 +36,7 @@ Key points:
 {all_points}
 """
 
+#this function will call the API and return raw text
 def call_llm (provider: str, prompt: str) -> str:            # the provider argument will be taken from the terminal as user input later 
     if provider == "anthropic":
         client = Anthropic()
@@ -47,8 +48,7 @@ def call_llm (provider: str, prompt: str) -> str:            # the provider argu
                 {"role": "user", "content": prompt}    # one of our prompts here
                 ]
             )
-        anthropic_response = print(message.content[0].text)
-        return anthropic_response
+        return message.content[0].text
     
 
     if provider == "openai":
@@ -61,28 +61,21 @@ def call_llm (provider: str, prompt: str) -> str:            # the provider argu
                 {"role":"user","content":prompt}
                 ]
             )
-        openai_response = print(response.output[0].content[0].text)
-        return openai_response
+        return response.output[0].content[0].text
     
     raise ValueError(f"Unknown provider: {provider}")
-        
-
-print(call_llm ("anthropic", chunk_prompt))
-
 
 '''
 Test 
 Print the whole message object to know where to drill:
 print(call_llm ("anthropic", chunk_prompt)) 
-'''       
+
+anthropic_response = print(message.content[0].text)
+    return anthropic_response
+
+openai_response = print(response.output[0].content[0].text)
+    return openai_response
+'''  
+        
 
 
-
-'''
-
-
-
-def summuarise(chunks: list[str], provider: str) -> FileSummary:
-    # will print processes to the command line 
-    return 
-'''
