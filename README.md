@@ -2,8 +2,8 @@
 
 > Even when a document fits in an LLM's context window, chunking it produces better, cheaper, more structured summaries. Chunking is the foundation every RAG system is built on.
 
-## The Problem / The Question
-When you ask ChatGPT or Claude to summarise something, it doesn't just return a blob of text. It returns structure: a title, bullet points, sections. I wanted to understand how that works. How do you make an LLM answer/return something structured (And then that my code can actually use)
+## The initial Question
+When you ask ChatGPT or Claude to summarise something, it doesn't just return a blob of text. It returns structure: a title, bullet points, sections. I wanted to understand how that works. How do you make an LLM answer/return something structured (And then that my code can actually use). How does chunking work in practice, where do you split the text exactly and how does it work all together? 
 
 ## What I Built
  
