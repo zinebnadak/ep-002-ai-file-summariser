@@ -85,7 +85,10 @@ def summarise(chunks: list[str], provider: str) -> FileSummary:
 
     # fill in the "{chunk_text}" in chunk_prompt chunk by chunk
     chunk_summaries = []
-    for chunk in chunks:
+    print(f"\nSummarizing {len(chunks)} chunk(s) using {provider}... \n")   #process indicator
+
+    for i, chunk in enumerate(chunks): # enumerate gives both index adn chunk value
+        print(f"Chunk {i+1}/{len(chunks)}...")  #process indicator
         complete_chunk_prompt = chunk_prompt.format(chunk_text=chunk)
         raw = call_llm(provider,complete_chunk_prompt)    # we will get a raw string response we need to convert to a dict using json
         raw = raw.strip().removeprefix("```json").removesuffix("```").strip()
@@ -98,18 +101,19 @@ def summarise(chunks: list[str], provider: str) -> FileSummary:
     for c in chunk_summaries:
         all_points_list.extend(c.key_points) # key_points is now a list of strings from our ChunkSummary class
 
+    print("\nSynthesising final summary...")    #process indicator
     complete_synthesis_prompt = synthesis_prompt.format(
         all_points = "\n".join(f"- {point}" for point in all_points_list)    #building the complete_synthesis_prompt neatly
     )
     raw = call_llm(provider, complete_synthesis_prompt)
-    print("RAW RESPONSE syn:", raw.strip().removeprefix("```json").removesuffix("```").strip())  #
     raw = raw.strip().removeprefix("```json").removesuffix("```").strip()
-    
     data = json.loads(raw)
     return FileSummary(**data)
 
 
 
+'''
+Test
 
 if __name__ == "__main__":
     from loader import load_file
@@ -117,7 +121,7 @@ if __name__ == "__main__":
 
     text = load_file("samples/sample.txt")
     chunks = chunk_text(text)
-    summary = summarise(chunks, "openai")
+    summary = summarise(chunks, "anthropic")
     print(summary)
 
-
+'''
