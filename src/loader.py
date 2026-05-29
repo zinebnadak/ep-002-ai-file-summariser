@@ -24,7 +24,7 @@ def load_file(file_path: str) -> str:
         return "\n\n".join(pages)                                           #join all pages with a blank line between each
 
     if suffix == ".docx":
-        from docx import document
+        from docx import Document
         doc = Document(str(path))
         paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]     #keep paragraphs that are not empty
         return "\n\n".join(paragraphs)
