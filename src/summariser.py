@@ -11,15 +11,17 @@ load_dotenv()
 
 chunk_prompt = """
 Read this chunk of text and return JSON only with these fields:
-- main_idea: one sentence summary
+- main_concept: one sentence summary
 - key_points: list of 3-5 main points
 - keywords: list of 5-10 important terms
 
 Return valid JSON only. No extra text.
 
 Chunk:
-{chunk_text}
+{chunk_text}    
 """
+# {chunk_text} so I can use format later like: chunk_prompt.format(chunk_text=chunk) , chunk one at a time 
+
 
 synthesis_prompt = """
 Here are key points extracted from all chunks of a document.
@@ -41,7 +43,7 @@ def call_llm (provider: str, prompt: str) -> str:            # the provider argu
     if provider == "anthropic":
         client = Anthropic()
         message = client.messages.create(
-            system = "Return valid JSON only.",       # system prompt here
+            system = "Return valid JSON only. No markdown, no code fences, no backticks. Raw JSON only.",       # system prompt here
             model = "claude-haiku-4-5",
             max_tokens = 1024,
             messages = [
@@ -54,7 +56,7 @@ def call_llm (provider: str, prompt: str) -> str:            # the provider argu
     if provider == "openai":
         client = OpenAI()
         response = client.responses.create(
-            instructions = "Return valid JSON only.",
+            instructions = "Return valid JSON only. No markdown, no code fences, no backticks. Raw JSON only.",             #the system prompt does not work! WHY?
             model = "gpt-4o-mini",
             max_output_tokens= 1024, 
             input = [
@@ -77,5 +79,45 @@ openai_response = print(response.output[0].content[0].text)
     return openai_response
 '''  
         
+
+#this function will parse the text into structured data and validate it using our models.py
+def summarise(chunks: list[str], provider: str) -> FileSummary:
+
+    # fill in the "{chunk_text}" in chunk_prompt chunk by chunk
+    chunk_summaries = []
+    for chunk in chunks:
+        complete_chunk_prompt = chunk_prompt.format(chunk_text=chunk)
+        raw = call_llm(provider,complete_chunk_prompt)    # we will get a raw string response we need to convert to a dict using json
+        raw = raw.strip().removeprefix("```json").removesuffix("```").strip()
+        data = json.loads(raw)
+        chunk_summaries.append(ChunkSummary(**data))    # validate the data using pydantic class we made, ** lets us create a ChunkSummay object (for the Pydantic class) from that json dict we loaded, with ** python unpacks the dict into named arguments
+
+
+    # fill in the "{all_points}" in synthesis_prompt after with all the chunk_summaries
+    all_points_list = []
+    for c in chunk_summaries:
+        all_points_list.extend(c.key_points) # key_points is now a list of strings from our ChunkSummary class
+
+    complete_synthesis_prompt = synthesis_prompt.format(
+        all_points = "\n".join(f"- {point}" for point in all_points_list)    #building the complete_synthesis_prompt neatly
+    )
+    raw = call_llm(provider, complete_synthesis_prompt)
+    print("RAW RESPONSE syn:", raw.strip().removeprefix("```json").removesuffix("```").strip())  #
+    raw = raw.strip().removeprefix("```json").removesuffix("```").strip()
+    
+    data = json.loads(raw)
+    return FileSummary(**data)
+
+
+
+
+if __name__ == "__main__":
+    from loader import load_file
+    from chunker import chunk_text
+
+    text = load_file("samples/sample.txt")
+    chunks = chunk_text(text)
+    summary = summarise(chunks, "openai")
+    print(summary)
 
 
