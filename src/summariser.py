@@ -4,7 +4,7 @@
 from anthropic import Anthropic
 from openai import OpenAI
 from dotenv import load_dotenv
-from src.models import ChunkSummary, FileSummary, Section # my three classes so we can validate the LLMs response
+from models import ChunkSummary, FileSummary, Section # my three classes so we can validate the LLMs response
 import json  #the LLM returns a JSON
 
 load_dotenv()
@@ -38,16 +38,51 @@ Key points:
 
 def call_llm (provider: str, prompt: str) -> str:            # the provider argument will be taken from the terminal as user input later 
     if provider == "anthropic":
-        return
+        client = Anthropic()
+        message = client.messages.create(
+            system = "Return valid JSON only.",       # system prompt here
+            model = "claude-haiku-4-5",
+            max_tokens = 1024,
+            messages = [
+                {"role": "user", "content": prompt}    # one of our prompts here
+                ]
+            )
+        anthropic_response = print(message.content[0].text)
+        return anthropic_response
+    
 
     if provider == "openai":
-        return 
+        client = OpenAI()
+        response = client.responses.create(
+            instructions = "Return valid JSON only.",
+            model = "gpt-4o-mini",
+            max_output_tokens= 1024, 
+            input = [
+                {"role":"user","content":prompt}
+                ]
+            )
+        openai_response = print(response.output[0].content[0].text)
+        return openai_response
     
     raise ValueError(f"Unknown provider: {provider}")
+        
+
+print(call_llm ("anthropic", chunk_prompt))
+
+
+'''
+Test 
+Print the whole message object to know where to drill:
+print(call_llm ("anthropic", chunk_prompt)) 
+'''       
+
+
+
+'''
 
 
 
 def summuarise(chunks: list[str], provider: str) -> FileSummary:
     # will print processes to the command line 
     return 
-
+'''
