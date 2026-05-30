@@ -15,7 +15,7 @@ Read this chunk of text and return JSON only with these fields:
 - key_points: list of 3-5 main points
 - keywords: list of 5-10 important terms
 
-Return valid JSON only. No extra text.
+Return valid JSON only. No markdown, no code fences, no backticks. Raw JSON only.
 
 Chunk:
 {chunk_text}    
@@ -32,7 +32,7 @@ Return JSON only with these fields:
 - overview: 2-3 sentence summary of the whole document
 - key_sections: list of sections, each with section_title and summary
 
-Return valid JSON only. No extra text.
+Return valid JSON only. No markdown, no code fences, no backticks. Raw JSON only.
 
 Key points:
 {all_points}
