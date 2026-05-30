@@ -106,6 +106,7 @@ Key Sections:
 - [Pydantic docs](https://pydantic.dev/docs/validation/latest/get-started/)
 - [Pypdf docs](https://pypi.org/project/pypdf/)
 - [python-docx docs](https://pypi.org/project/python-docx/)
+- [argparse](https://docs.python.org/3/howto/argparse.html)/
 
 
 *by [Zineb Nadak](https://github.com/zinebnadak) · [X](https://x.com/zinebnadak?s=21) · [LinkedIn](https://www.linkedin.com/in/zinebnadak?utm_source=share_via&utm_content=profile&utm_medium=member_ios)*
