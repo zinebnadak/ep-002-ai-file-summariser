@@ -43,7 +43,7 @@ def call_llm (provider: str, prompt: str) -> str:            # the provider argu
     if provider == "anthropic":
         client = Anthropic()
         message = client.messages.create(
-            system = "Return valid JSON only. No markdown, no code fences, no backticks. Raw JSON only.",       # system prompt here
+            system = "" ,       # system prompt here
             model = "claude-haiku-4-5",
             max_tokens = 1024,
             messages = [
@@ -56,7 +56,7 @@ def call_llm (provider: str, prompt: str) -> str:            # the provider argu
     if provider == "openai":
         client = OpenAI()
         response = client.responses.create(
-            instructions = "Return valid JSON only. No markdown, no code fences, no backticks. Raw JSON only.",             #the system prompt does not work! WHY?
+            instructions = "",             #the system prompt does not work! WHY?
             model = "gpt-4o-mini",
             max_output_tokens= 1024, 
             input = [
